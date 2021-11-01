@@ -4,6 +4,15 @@ body{
 
 .mainchart{
     border: 1px brown solid;
+    height: 800;
+    width: 800;
+    margin-left: 50px;
+}
+
+.yearlabel{
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 20px;
 }
 
 #map-tooltip{
@@ -18,3 +27,11 @@ body{
     border-radius:5px;
     
 }
+
+/* .areachart{
+    border: 1px brown solid;
+    height: 250px;
+    width: 800px;
+    margin-left: 50px;
+    margin-top: 20px;
+} */

@@ -10,11 +10,12 @@ Promise.all([
     let stateYearCount=data[2]
     console.log(crimedata)
 
+    //initialize the map
     var yearselected=1980;
-
     const mainmap=mainMap(".mainchart",usmap);
     mainmap.update(stateYearCount);
-
+    mainmap.filterByYear(stateYearCount,yearselected)
+    
     //creating a slider for year selection
     var years=d3.range(1980,2015);
     

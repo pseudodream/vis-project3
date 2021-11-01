@@ -3,8 +3,8 @@ export default function mainMap(container,usmap) {
     //margin convention
     const margin = ({ top: 10, right: 10, bottom: 10, left: 10 });
 
-    const width = 1000 - margin.left - margin.right,
-        height = 1000 - margin.top - margin.bottom;
+    const width = 800 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
 
     const svg = d3.select(container).append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -71,6 +71,7 @@ export default function mainMap(container,usmap) {
                     "State: "+d.properties.name+'<br>'
                     + "Crime count: "+state.count
                 )
+                
             }
     
         })
@@ -86,6 +87,9 @@ export default function mainMap(container,usmap) {
     function filterByYear(data,yearselected){
         let filtered=data.filter(d=>(d.year==yearselected))
         update(filtered)
+        d3
+        .select(".yearlabel")
+        .html("Number of Homocide Reports in "+ yearselected)
     }
 
 
