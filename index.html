@@ -9,14 +9,22 @@
     <link rel="stylesheet" href="style.css">
   
     <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
-  
+    <script src="https://unpkg.com/topojson@3"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    
+
     <script src="main.js" defer type="module"></script>
   </head>
   
   <body>
     <h1>Homocide Reports in the U.S. from 1980-2014</h1>
     <div>
-        <div class="mainchart"></div>
+        <div class="slider"></div>
+        <div class="mainchart">
+          <div id=map-tooltip></div>
+        </div>
+        
+        <div class="areachart"></div>
 
     </div>
 
