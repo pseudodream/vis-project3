@@ -89,7 +89,7 @@ export default function mainMap(container,usmap) {
         update(filtered)
         d3
         .select(".yearlabel")
-        .html("Number of Homocide Reports in "+ yearselected)
+        .html("Homocide Reports in "+ yearselected)
     }
 
 
