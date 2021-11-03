@@ -4,6 +4,7 @@ import barchart from './barchart.js'
 export default function mainMap(container,usmap) {
     //margin convention
     const areaChart = areachart(".areachart")
+    const barChart = barchart(".bargraph")
 
     const margin = ({ top: 10, right: 10, bottom: 10, left: 10 });
 
@@ -45,9 +46,9 @@ export default function mainMap(container,usmap) {
         .attr("d", path);
 
     function update(data, unfiltered, crimedata) {
-        console.log("data", data)
+        /*console.log("data", data)
         console.log("unfiltered", unfiltered)
-        console.log("filtered crime", crimedata)
+        console.log("filtered crime", crimedata)*/
         
         const colorScale = d3
              .scaleSequential(d3.interpolateReds)
@@ -84,17 +85,19 @@ export default function mainMap(container,usmap) {
                 d3.select("#map-tooltip").style("opacity", 0);	
             })
             .on("click", (event, d) => {
-                console.log("filtered crime", crimedata)
+                //console.log("filtered crime", crimedata)
 
                 let filteredState = filterByState(unfiltered, d.properties.name)
                 areaChart.update(filteredState)
 
                 let filteredCrimeState = filterCrimeState(crimedata, d.properties.name)
-                let crimeCount = countCrimes(crimedata)
+                let crimeCountAll = countCrimes(filteredCrimeState)
+                let crimeCount = crimeCountAll.slice(0, 5);
                 console.log("crime count", crimeCount)
-                //barchart.update(filterCrimeState)
+
+                barChart.update(crimeCount)
                 
-                console.log(d.properties.name)
+                //console.log(d.properties.name)
             })
     }
 

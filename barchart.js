@@ -25,20 +25,47 @@ export default function barchart(container) {
     const yAxis = d3.axisLeft().ticks(10, "s");
 
     // axis containers
-    const yAxisGroup = svg.append("g").attr("class", "axis y-axis");
+    svg.append("g").attr("class", "axis y-axis");
 
-    const xAxisGroup = svg
-        .append("g")
+    svg.append("g")
         .attr("class", "axis x-axis")
         .attr("transform", `translate(0, ${height})`);
 
     function update(filtered) {
         // have to make a group by function that will appropriately group the murder weapons used
 
-        xScale.domain([d3.min(filtered, d => d.year), d3.max(filtered, d=>d.year)])
-        yScale.domain([0, d3.max(filtered, d=>d.count)])
+        xScale.domain(filtered.map(d => d.weapon))  
+	    yScale.domain([0, d3.max(filtered, d => d.count)])
 
-        
+        const updateBars = svg.selectAll('rect').data(filtered)
+
+        updateBars.enter().append('rect')
+            .merge(updateBars)
+            .transition()
+            .duration(1000)
+            // in transition change x and y positions as well as height and width
+            .attr('x', d => xScale(d.weapon))
+            .attr('y', d => yScale(d.count))
+            .attr('width', d=> xScale.bandwidth())
+            .attr('height', d=>(height - yScale(d.count)))
+            .attr('fill', '#9b4dca')
+
+        updateBars.exit().transition().duration(750).remove()
+
+        // Update axes and title
+        svg.select(".x-axis")
+            .transition()
+            .duration(1000)
+            .call(xAxis);
+
+        svg.select(".y-axis")
+            .transition()
+            .duration(1000)
+            .call(yAxis);
+    }
+    
+    return {
+        update
     }
 
 }
