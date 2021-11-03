@@ -4,9 +4,9 @@ body{
 
 .mainchart{
     border: 1px brown solid;
-    height: 800px;
-    width: 800px;
-    margin-left: 50px;
+    /*height: 400px;
+    width: 400px;
+    margin-left: 50px;*/
 }
 
 .yearlabel{
