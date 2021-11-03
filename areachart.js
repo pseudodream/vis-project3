@@ -36,11 +36,11 @@ export default function areachart(container){
     const yAxisGroup = svg.append("g")
         .attr("class", "axis y-axis")
 
-    function update(data) {
+    function update(filtered) {
         
         // Update domains and scales using data passed to update
-        xScale.domain([d3.min(data, d => d.year), d3.max(data, d=>d.year)])
-        yScale.domain([0, d3.max(data, d=>d.count)])
+        xScale.domain([d3.min(filtered, d => d.year), d3.max(filtered, d=>d.year)])
+        yScale.domain([0, d3.max(filtered, d=>d.count)])
 
         // Create an area generator
         var area = d3.area()
@@ -50,7 +50,7 @@ export default function areachart(container){
 
         // Select the area and set data using datum, call the area function
         d3.select(".area")
-            .datum(data)
+            .datum(filtered)
             .attr("d", area)
             .attr("fill", "#4E79A7")
 
@@ -61,5 +61,9 @@ export default function areachart(container){
         
         yAxisGroup
             .call(yAxis)
+    }
+
+    return {
+        update
     }
 }

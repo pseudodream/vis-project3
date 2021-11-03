@@ -1,6 +1,9 @@
+import areachart from './areachart.js'
 
 export default function mainMap(container,usmap) {
     //margin convention
+    const areaChart = areachart(".areachart")
+
     const margin = ({ top: 10, right: 10, bottom: 10, left: 10 });
 
     const width = 600 - margin.left - margin.right;
@@ -41,6 +44,8 @@ export default function mainMap(container,usmap) {
         .attr("d", path);
 
     function update(data, unfiltered) {
+        let filtered;
+
         console.log("data", data)
         console.log("unfiltered", unfiltered)
         const colorScale = d3
@@ -78,9 +83,11 @@ export default function mainMap(container,usmap) {
                 d3.select("#map-tooltip").style("opacity", 0);	
             })
             .on("click", (event, d) => {
+                filtered = filterByState(unfiltered, d.properties.name)
+                areaChart.update(filtered)
                 console.log(d.properties.name)
                 console.log("data", data);
-            }) 
+            })
     }
 
     //filter data by the year selected
@@ -90,6 +97,12 @@ export default function mainMap(container,usmap) {
         d3
         .select(".yearlabel")
         .html("Homocide Reports in "+ yearselected)
+    }
+
+    // Filter by selected state
+    function filterByState(data, stateSelected) {
+        let filtered = data.filter(d=>(d.state == stateSelected));
+        return filtered;
     }
 
     return {

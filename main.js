@@ -46,7 +46,7 @@ Promise.all([
           d3.select('slider').text((val))
          
           yearselected=val;
-          mainmap.filterByYear(stateYearCount,yearselected)
+          mainmap.filterByYear(stateYearCount,yearselected, stateYearCount)
           
         });
 
