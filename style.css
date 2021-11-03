@@ -2,12 +2,12 @@ body{
     margin: 20px;
 }
 
-.mainchart{
+/*.mainchart{
     border: 1px brown solid;
-    /*height: 400px;
+    height: 400px;
     width: 400px;
-    margin-left: 50px;*/
-}
+    margin-left: 50px;
+}*/
 
 .yearlabel{
     margin-left: 20px;

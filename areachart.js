@@ -2,8 +2,8 @@ export default function areachart(container){
     
     // Define margin convention
     const margin = {top:50, left:50, right:50, bottom:50};
-    const width = 850 - margin.left - margin.right;
-    const height = 200 - margin.top - margin.bottom;
+    const width = 600 - margin.left - margin.right;
+    const height = 250 - margin.top - margin.bottom;
 
     // Create an SVG element
     const svg = d3.selectAll(container).append("svg")
@@ -25,6 +25,7 @@ export default function areachart(container){
 
     // Create axes
     const xAxis = d3.axisBottom()
+        .tickFormat(d3.format("d"))
         .scale(xScale)
 
     const yAxis = d3.axisLeft()

@@ -5,17 +5,19 @@ Promise.all([
   d3.csv("crimedata.csv",d3.autoType),
   d3.csv("state-year-count.csv",d3.autoType)
 ]).then(data=>{
-    let usmap=data[0]
-    let crimedata=data[1]
-    let stateYearCount=data[2]
-    console.log(crimedata)
-    console.log("state year count", stateYearCount)
+    let usmap =data[0]
+    let crimedata = data[1]
+    let stateYearCount = data[2]
+    //console.log(crimedata)
+    //console.log("state year count", stateYearCount)
 
     //initialize the map
-    var yearselected=1980;
-    const mainmap=mainMap(".mainchart",usmap);
-    mainmap.update(stateYearCount, stateYearCount);
-    mainmap.filterByYear(stateYearCount,yearselected, stateYearCount)
+    var yearselected = 1980;
+    const mainmap = mainMap(".mainchart",usmap);
+
+    mainmap.update(stateYearCount, stateYearCount, crimedata);
+    mainmap.filterByYear(stateYearCount, yearselected, stateYearCount, crimedata)
+    //mainmap.filterCrimeYear(crimedata, yearselected, stateYearCount, stateYearCount)
     
     //creating a slider for year selection
     var years=d3.range(1980,2015);
@@ -45,8 +47,9 @@ Promise.all([
         .on('onchange', val => {
           d3.select('slider').text((val))
          
-          yearselected=val;
-          mainmap.filterByYear(stateYearCount,yearselected, stateYearCount)
+          yearselected = val;
+          mainmap.filterByYear(stateYearCount, yearselected, stateYearCount, crimedata)
+          //mainmap.filterCrimeYear(crimedata, yearselected, stateYearCount, stateYearCount)
           
         });
 
