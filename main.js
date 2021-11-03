@@ -17,7 +17,6 @@ Promise.all([
 
     mainmap.update(stateYearCount, stateYearCount, crimedata);
     mainmap.filterByYear(stateYearCount, yearselected, stateYearCount, crimedata)
-    //mainmap.filterCrimeYear(crimedata, yearselected, stateYearCount, stateYearCount)
     
     //creating a slider for year selection
     var years=d3.range(1980,2015);
@@ -49,7 +48,6 @@ Promise.all([
          
           yearselected = val;
           mainmap.filterByYear(stateYearCount, yearselected, stateYearCount, crimedata)
-          //mainmap.filterCrimeYear(crimedata, yearselected, stateYearCount, stateYearCount)
           
         });
 

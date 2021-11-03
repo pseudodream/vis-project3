@@ -45,9 +45,9 @@ export default function mainMap(container,usmap) {
         .attr("d", path);
 
     function update(data, unfiltered, crimedata) {
-        /*console.log("data", data)
+        console.log("data", data)
         console.log("unfiltered", unfiltered)
-        console.log("filtered crime", crimedata)*/
+        console.log("filtered crime", crimedata)
         
         const colorScale = d3
              .scaleSequential(d3.interpolateReds)
@@ -85,10 +85,11 @@ export default function mainMap(container,usmap) {
             })
             .on("click", (event, d) => {
                 console.log("filtered crime", crimedata)
+
                 let filteredState = filterByState(unfiltered, d.properties.name)
                 areaChart.update(filteredState)
 
-                //let filteredCrimeState = filterCrimeState(crimedata, d.properties.name)
+                let filteredCrimeState = filterCrimeState(crimedata, d.properties.name)
                 let crimeCount = countCrimes(crimedata)
                 console.log("crime count", crimeCount)
                 //barchart.update(filterCrimeState)
@@ -99,8 +100,10 @@ export default function mainMap(container,usmap) {
 
     //filter data by the year selected
     function filterByYear(data ,yearselected, unfiltered, crimedata){
-        let filtered = data.filter(d=>(d.year==yearselected))
-        update(filtered, unfiltered, crimedata)
+        let filtered = data.filter(d => (d.year==yearselected))
+        let filteredCrime = crimedata.filter(d => (d.Year == yearselected))
+
+        update(filtered, unfiltered, filteredCrime)
         d3
         .select(".yearlabel")
         .html("Homocide Reports in "+ yearselected)
@@ -112,19 +115,13 @@ export default function mainMap(container,usmap) {
         return filtered;
     }
 
-    // Filter the crime data by year selected
-    /*function filterCrimeYear(crimedata, year, data, unfiltered) {
-        let filtered = crimedata.filter(d => (d.Year == year))
-        update(data, unfiltered, filtered)
-    }*/
-
     //Filter by selected state
-    /*function filterCrimeState(data, stateSelected) {
+    function filterCrimeState(data, stateSelected) {
         let filtered = data.filter(d=>(d.State == stateSelected));
         return filtered;
-    }*/
+    }
 
-    /*function countCrimes(crimes){
+    function countCrimes(crimes){
         var counts = {};
         for (var i = 0; i < crimes.length; i++) {
             counts[crimes[i].Weapon] = 1 + (counts[crimes[i].Weapon] || 0);
@@ -142,12 +139,11 @@ export default function mainMap(container,usmap) {
         });
 
         return crimeArr
-    }*/
+    }
 
     return {
         update,
         filterByYear,
-        //filterCrimeYear
     }
 
 }
