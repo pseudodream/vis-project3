@@ -26,7 +26,7 @@ Promise.all([
         .min(d3.min(years))
         .max(d3.max(years))
         .step(1)
-        .width(1000)
+        .width(1300)
         .tickFormat(d3.format(''))
         .tickValues(years)
         .default(1980)
@@ -34,10 +34,10 @@ Promise.all([
       var sliderGraph = d3
         .select('.slider')
         .append('svg')
-        .attr('width', 1200)
+        .attr('width', 1400)
         .attr('height', 100)
         .append('g')
-        .attr('transform', 'translate(30,30)');
+        .attr('transform', 'translate(50,30)');
     
     sliderGraph.call(timeSlider);
 

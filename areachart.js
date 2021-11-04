@@ -2,7 +2,7 @@ export default function areachart(container){
     
     // Define margin convention
     const margin = {top:50, left:50, right:50, bottom:50};
-    const width = 600 - margin.left - margin.right;
+    const width = 650 - margin.left - margin.right;
     const height = 250 - margin.top - margin.bottom;
 
     // Create an SVG element
@@ -15,6 +15,10 @@ export default function areachart(container){
     // Create path for area and assign it a class name
     svg.append("path")
         .attr("class", "area")
+
+    //Create a path for the line and assign it a class name
+    svg.append("path")
+        .attr("class", "line")
 
     // Create scales without domains
     const xScale = d3.scaleTime()
@@ -29,13 +33,36 @@ export default function areachart(container){
         .scale(xScale)
 
     const yAxis = d3.axisLeft()
+        .ticks(5)
         .scale(yScale)
 
-    const xAxisGroup = svg.append("g")
+    svg.append("g")
         .attr("class", "axis x-axis")
+        .attr("transform", `translate(0, ${height})`)
     
-    const yAxisGroup = svg.append("g")
+    svg.append("g")
         .attr("class", "axis y-axis")
+
+    const labelY = svg.append('text')
+        .attr('x', -80)
+        .attr('y', -40)
+        .attr('text-anchor', 'middle')
+        .attr('alignment-baseline', 'middle')
+        .attr("transform", "rotate(-90)")
+        .attr('font-size', 14)
+        .attr('fill', 'grey')
+        .attr("font-weight", 700);
+
+    const labelX = svg.append('text')
+        .attr('x', 250)
+        .attr('y', 180)
+        .attr('text-anchor', 'middle')
+        .attr('alignment-baseline', 'middle')
+        .attr('font-size', 14)
+        .attr('fill', 'grey')
+        .attr("font-weight", 700);
+
+    const title = svg.append("text")
 
     function update(filtered) {
         
@@ -52,16 +79,51 @@ export default function areachart(container){
         // Select the area and set data using datum, call the area function
         d3.select(".area")
             .datum(filtered)
+            .transition()
+            .duration(1000)
             .attr("d", area)
-            .attr("fill", "#4E79A7")
+            .attr("fill", "#feded0")
+            
+
+        // Add a line to the area chart
+        var line = d3.line()
+            .x(d => xScale(d.year))
+            .y(d => yScale(d.count))
+
+        d3.select(".line")
+            .datum(filtered)
+            .transition()
+            .duration(1000)
+            .attr("d", line)
+            .attr("fill", "none")
+            .attr("stroke", "#67000d")
+            .attr("stroke-width", 2.5)
 
         // Update axes using update scales
-        xAxisGroup
+        svg.select(".x-axis")
+            .transition()
+            .duration(1000)
             .call(xAxis)
-            .attr("transform", `translate(0, ${height})`)
-        
-        yAxisGroup
+
+        svg.select(".y-axis")
+            .transition()
+            .duration(1000)
             .call(yAxis)
+
+        const state = filtered[0].state
+        title.attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text(function(){ return "Homicide Trends in "+ state; })
+            .attr("font-weight", 700)
+            .attr('fill', 'grey');
+
+        labelY.text("Homicides")
+
+        labelX.text("Year")
+
+
     }
 
     return {

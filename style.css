@@ -9,6 +9,16 @@ body{
     margin-left: 50px;
 }*/
 
+h2 { 
+    text-align: center; 
+    font-weight: bold;
+}
+
+h5 { 
+    text-align: center; 
+    font-weight: bold;
+}
+
 .yearlabel{
     margin-left: 20px;
     margin-top: 10px;
@@ -29,10 +39,46 @@ body{
     
 }
 
-/* .areachart{
-    border: 1px brown solid;
-    height: 250px;
-    width: 800px;
-    margin-left: 50px;
-    margin-top: 20px;
-} */
+#chart1{
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 15px;
+    padding-left: 0px;
+}
+
+#chart2{
+    padding-top: 15px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+
+#slider{
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+
+#yearlabel{
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 450px;
+    font-weight: bold;
+}
+
+#charts{
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+
+a {
+    color: #67000d;
+}
+
+a:hover {
+    color: #feded0; 
+}

@@ -3,6 +3,9 @@ import barchart from './barchart.js'
 
 export default function mainMap(container,usmap) {
     //margin convention
+
+    const format = d3.format(",");
+
     const areaChart = areachart(".areachart")
     const barChart = barchart(".bargraph")
 
@@ -45,6 +48,7 @@ export default function mainMap(container,usmap) {
         .attr("stroke-linejoin", "round")
         .attr("d", path);
 
+
     function update(data, unfiltered, crimedata) {
         /*console.log("data", data)
         console.log("unfiltered", unfiltered)
@@ -75,9 +79,9 @@ export default function mainMap(container,usmap) {
                             +"No Data"
                         )
                     }else{
-                        d3.select("#map-tooltip").html(
-                            "State: "+d.properties.name+'<br>'
-                            + "Crime count: "+state.count
+                        d3.select("#map-tooltip").html(`
+                        <div>State: ${d.properties.name}</div>
+                        <div>Homicide Count: ${format(state.count)}</div>`
                         )
                     }
             })
@@ -88,6 +92,10 @@ export default function mainMap(container,usmap) {
                 //console.log("filtered crime", crimedata)
 
                 let filteredState = filterByState(unfiltered, d.properties.name)
+                
+                const state = filteredState[0].state
+                const year = data[0].year
+                
                 areaChart.update(filteredState)
 
                 let filteredCrimeState = filterCrimeState(crimedata, d.properties.name)
@@ -95,7 +103,7 @@ export default function mainMap(container,usmap) {
                 let crimeCount = crimeCountAll.slice(0, 5);
                 console.log("crime count", crimeCount)
 
-                barChart.update(crimeCount)
+                barChart.update(crimeCount, state, year)
                 
                 //console.log(d.properties.name)
             })
@@ -107,9 +115,8 @@ export default function mainMap(container,usmap) {
         let filteredCrime = crimedata.filter(d => (d.Year == yearselected))
 
         update(filtered, unfiltered, filteredCrime)
-        d3
-        .select(".yearlabel")
-        .html("Homocide Reports in "+ yearselected)
+        d3.select(".yearlabel")
+            .html("Homicide Trends "+ yearselected + ": Click a state to start exploring")
     }
 
     // Filter by selected state
