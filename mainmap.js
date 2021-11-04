@@ -104,8 +104,7 @@ export default function mainMap(container,usmap) {
                 console.log("crime count", crimeCount)
 
                 barChart.update(crimeCount, state, year)
-                
-                //console.log(d.properties.name)
+               
             })
     }
 

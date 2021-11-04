@@ -20,10 +20,12 @@ h5 {
 }
 
 .yearlabel{
-    margin-left: 20px;
-    margin-top: 10px;
-    font-size: 20px;
+    
+    font-size: 16px;
     z-index: 999;
+    text-align: center; 
+    font-weight: bold;
+    
 }
 
 #map-tooltip{
